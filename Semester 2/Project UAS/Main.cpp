@@ -1,9 +1,25 @@
 #include <iostream>
 #include <iomanip>
+#include <fstream>
+#include <iomanip>
 using namespace std;
+
+struct dataPenduduk
+{
+    string nama;
+    int nomorKtp;
+    string status;
+    string golonganDarah;
+};
+
+string replaceSpasi(string str);
+string replaceUnderscore(string str);
+void inputData(dataPenduduk data[]);
+void outputData(dataPenduduk data[]);
 
 int main()
 {
+    dataPenduduk penduduk[100];
     string menuAwal, menuSearching, menuSorting, menuTransaksi;
     string menuSequentialSearch, menuBinarySearch;
     string menuBubbleSort, menuSelectionSort, menuInsertionSort, menuShellSort, menuQuickSort;
@@ -25,14 +41,14 @@ int main()
 
         if (pilihMenuAwal == 1)
         {
-
+            inputData(penduduk);
             cout << "\nKembali ke Menu Awal? (y/n) ";
             cin >> menuAwal;
             system("cls");
         }
         else if (pilihMenuAwal == 2)
         {
-
+            outputData(penduduk);
             cout << "\nKembali ke Menu Awal? (y/n) ";
             cin >> menuAwal;
             system("cls");
@@ -96,8 +112,8 @@ int main()
                     do
                     {
 
-                        cout<<"Ulangi Pengurutan? (y/n) ";
-                        cin>>menuBubbleSort;
+                        cout << "Ulangi Pengurutan? (y/n) ";
+                        cin >> menuBubbleSort;
                     } while (menuBubbleSort == "y");
                 }
                 else if (menuSorting2 == 2)
@@ -105,16 +121,16 @@ int main()
                     do
                     {
 
-                        cout<<"Ulangi Pengurutan? (y/n) ";
-                        cin>>menuSelectionSort;
+                        cout << "Ulangi Pengurutan? (y/n) ";
+                        cin >> menuSelectionSort;
                     } while (menuSelectionSort == "y");
                 }
                 else if (menuSorting2 == 3)
                 {
                     do
                     {
-                        cout<<"Ulangi Pengurutan? (y/n) ";
-                        cin>>menuInsertionSort;
+                        cout << "Ulangi Pengurutan? (y/n) ";
+                        cin >> menuInsertionSort;
                     } while (menuInsertionSort == "y");
                 }
                 else if (menuSorting2 == 4)
@@ -122,8 +138,8 @@ int main()
                     do
                     {
 
-                        cout<<"Ulangi Pengurutan? (y/n) ";
-                        cin>>menuShellSort;
+                        cout << "Ulangi Pengurutan? (y/n) ";
+                        cin >> menuShellSort;
                     } while (menuShellSort == "y");
                 }
                 else if (menuSorting2 == 5)
@@ -131,8 +147,8 @@ int main()
                     do
                     {
 
-                        cout<<"Ulangi Pengurutan? (y/n) ";
-                        cin>>menuQuickSort;
+                        cout << "Ulangi Pengurutan? (y/n) ";
+                        cin >> menuQuickSort;
                     } while (menuQuickSort == "y");
                 }
                 else
@@ -150,32 +166,34 @@ int main()
         {
             do
             {
-                cout<<"Transaksi"<<endl;
-                cout<<"1. Merging Sambung"<<endl;
-                cout<<"2. Updating"<<endl;
-                cout<<"Pilih Menu: ";
-                cin>>menuTransaksi2;
+                cout << "Transaksi" << endl;
+                cout << "1. Merging Sambung" << endl;
+                cout << "2. Updating" << endl;
+                cout << "Pilih Menu: ";
+                cin >> menuTransaksi2;
                 system("cls");
-                if(menuTransaksi2==1)
+                if (menuTransaksi2 == 1)
                 {
-                    do{
-                    cout<<"Ulangi? (y/n) ";
-                    cin>>menuMergingSambung;
-                    }while(menuMergingSambung=="y");
+                    do
+                    {
+                        cout << "Ulangi? (y/n) ";
+                        cin >> menuMergingSambung;
+                    } while (menuMergingSambung == "y");
                 }
-                else if(menuTransaksi2==2)
+                else if (menuTransaksi2 == 2)
                 {
-                    do{
-                    cout<<"Ulangi? (y/n) ";
-                    cin>>menuUpdating;
-                    }while(menuUpdating=="y");
+                    do
+                    {
+                        cout << "Ulangi? (y/n) ";
+                        cin >> menuUpdating;
+                    } while (menuUpdating == "y");
                 }
                 else
                 {
-                    cout<<"Pilihan tidak ada"<<endl;
+                    cout << "Pilihan tidak ada" << endl;
                 }
-                cout<<"\nKembali ke Menu Transaksi? (y/n) ";
-                cin>>menuTransaksi;
+                cout << "\nKembali ke Menu Transaksi? (y/n) ";
+                cin >> menuTransaksi;
             } while (menuTransaksi == "y");
             cout << "\nKembali ke Menu Awal? (y/n) ";
             cin >> menuAwal;
@@ -195,4 +213,107 @@ int main()
         }
 
     } while (menuAwal == "y");
+}
+string replaceSpasi(string str)
+{
+    for (int i = 0; i < str.length(); i++)
+    {
+        if (str[i] == ' ')
+        {
+            str[i] = '_';
+        }
+    }
+    return str;
+}
+string replaceUnderscore(string str)
+{
+    for (int i = 0; i < str.length(); i++)
+    {
+        if (str[i] == '_')
+        {
+            str[i] = ' ';
+        }
+    }
+    return str;
+}
+void inputData(dataPenduduk data[])
+{
+    string namaFile;
+    int banyakData = 0;
+
+    cout << "========================" << endl;
+    cout << "INPUT DATA KEPENDUDUKAN" << endl;
+    cout << "========================" << endl;
+    cout << "Masukkan Nama File : ";
+    cin >> namaFile;
+    cout << "Banyaknya Data\t: ";
+    cin >> banyakData;
+
+    for (int i = 0; i < banyakData; i++)
+    {
+        cout << "\t Nomor KTP\t: ";
+        cin >> data[i].nomorKtp;
+        cin.ignore();
+        cout << "\t Nama\t\t: ";
+        getline(cin, data[i].nama);
+        cout << "\t Status\t\t: ";
+        cin >> data[i].status;
+        cout << "\t Golongan Darah\t: ";
+        cin >> data[i].golonganDarah;
+        cout << "\n";
+    }
+    for (int i = 0; i < banyakData; i++)
+        data[i].nama = replaceSpasi(data[i].nama);
+
+    ofstream ofs(namaFile, ios::app);
+    if (ofs.is_open())
+    {
+        for (int i = 0; i < banyakData; i++)
+        {
+            ofs << data[i].nomorKtp << " "
+                << data[i].nama << " "
+                << data[i].status << " "
+                << data[i].golonganDarah << " "
+                << endl;
+        }
+        ofs.close();
+    }
+}
+void outputData(dataPenduduk data[])
+{
+    int i = 0;
+    int jumlahData = 0;
+    string namaFile;
+    cout << "========================" << endl;
+    cout << "OUTPUT DATA KEPENDUDUKAN" << endl;
+    cout << "========================" << endl;
+    cout << "Masukkan Nama File : ";
+    cin >> namaFile;
+    ifstream ifs(namaFile);
+    while (!ifs.eof())
+    {
+        ifs >> data[i].nomorKtp;
+        ifs >> data[i].nama;
+        ifs >> data[i].status;
+        ifs >> data[i].golonganDarah;
+        i++;
+    }
+    ifs.close();
+    jumlahData += i - 1;
+    cout << setfill('-') << setw(85) << "-" << endl;
+    cout << left << "|" << setfill(' ') << setw(16) << " Nomor KTP"
+         << "|" << setfill(' ') << setw(23);
+    cout << " Nama"
+         << "|" << setfill(' ') << setw(19) << " Status"
+         << "|" << setfill(' ') << setw(19);
+    cout << " Golongan Darah"
+         << "|" << endl;
+    cout << setfill('-') << setw(85) << "-" << endl;
+    for (int i = 0; i < jumlahData; i++)
+    {
+        cout << "| " << setfill(' ') << setw(15) << data[i].nomorKtp << "| " << setfill(' ') << setw(22) << replaceUnderscore(data[i].nama);
+        cout << "| " << setfill(' ') << setw(18) << data[i].status << "| " << setfill(' ') << setw(18) << data[i].golonganDarah;
+        cout << "| " << endl;
+    }
+    cout << setfill('-') << setw(85) << "-" << endl;
 }
