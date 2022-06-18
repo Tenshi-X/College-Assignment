@@ -556,6 +556,21 @@ void binarySearch(dataPenduduk data[], string file)
     banyakData += i - 1;
     if (pilih == 1)
     {
+        for (int i = 0; i < banyakData - 1; i++)
+        {
+            int min = i;
+            for (int j = i + 1; j < banyakData; j++)
+            {
+                if (data[j].nomorKtp < data[min].nomorKtp)
+                {
+                    min = j;
+                }
+            }
+            dataPenduduk temp = data[i];
+            data[i] = data[min];
+            data[min] = temp;
+        }
+
         int nik;
         cout << "Masukkan Nomor KTP : ";
         cin >> nik;
@@ -592,6 +607,20 @@ void binarySearch(dataPenduduk data[], string file)
     }
     else if (pilih == 2)
     {
+        for (int i = 0; i < banyakData - 1; i++)
+        {
+            int min = i;
+            for (int j = i + 1; j < banyakData; j++)
+            {
+                if (replaceSpasi(data[j].nama) < replaceSpasi(data[min].nama))
+                {
+                    min = j;
+                }
+            }
+            dataPenduduk temp = data[i];
+            data[i] = data[min];
+            data[min] = temp;
+        }
         string nama;
         cout << "Masukkan Nama : ";
         cin.ignore();
@@ -629,6 +658,20 @@ void binarySearch(dataPenduduk data[], string file)
     }
     else if (pilih == 3)
     {
+        for (int i = 0; i < banyakData - 1; i++)
+        {
+            int min = i;
+            for (int j = i + 1; j < banyakData; j++)
+            {
+                if (replaceSpasi(data[j].status) < replaceSpasi(data[min].status))
+                {
+                    min = j;
+                }
+            }
+            dataPenduduk temp = data[i];
+            data[i] = data[min];
+            data[min] = temp;
+        }
         string status;
         cout << "Masukkan Status : ";
         cin.ignore();
@@ -666,6 +709,20 @@ void binarySearch(dataPenduduk data[], string file)
     }
     else if (pilih == 4)
     {
+        for (int i = 0; i < banyakData - 1; i++)
+        {
+            int min = i;
+            for (int j = i + 1; j < banyakData; j++)
+            {
+                if (data[j].golonganDarah < data[min].golonganDarah)
+                {
+                    min = j;
+                }
+            }
+            dataPenduduk temp = data[i];
+            data[i] = data[min];
+            data[min] = temp;
+        }
         string golonganDarah;
         cout << "Masukkan Golongan Darah : ";
         cin >> golonganDarah;
@@ -711,6 +768,9 @@ void bubbleSort(dataPenduduk data[], string file)
     cout << "Pengurutan Data Bubble" << endl;
     cout << "============================" << endl;
     cout << "1. NIK" << endl;
+    cout << "2. Nama" << endl;
+    cout << "3. Status" << endl;
+    cout << "4. Golongan Darah" << endl;
     cout << "============================" << endl;
     cout << "Pilih : ";
     int pilih, i = 0, banyakData = 0;
@@ -742,19 +802,73 @@ void bubbleSort(dataPenduduk data[], string file)
             }
         }
     }
+    else if (pilih == 2)
+    {
+        for (int i = 0; i < banyakData - 1; i++)
+        {
+            for (int j = 0; j < banyakData - i - 1; j++)
+            {
+                if (replaceSpasi(data[j].nama) > replaceSpasi(data[j + 1].nama))
+                {
+                    dataPenduduk temp = data[j];
+                    data[j] = data[j + 1];
+                    data[j + 1] = temp;
+                }
+            }
+        }
+    }
+    else if (pilih == 3)
+    {
+        for (int i = 0; i < banyakData - 1; i++)
+        {
+            for (int j = 0; j < banyakData - i - 1; j++)
+            {
+                if (replaceSpasi(data[j].status) > replaceSpasi(data[j + 1].status))
+                {
+                    dataPenduduk temp = data[j];
+                    data[j] = data[j + 1];
+                    data[j + 1] = temp;
+                }
+            }
+        }
+    }
+    else if (pilih == 4)
+    {
+        for (int i = 0; i < banyakData - 1; i++)
+        {
+            for (int j = 0; j < banyakData - i - 1; j++)
+            {
+                if (data[j].golonganDarah > data[j + 1].golonganDarah)
+                {
+                    dataPenduduk temp = data[j];
+                    data[j] = data[j + 1];
+                    data[j + 1] = temp;
+                }
+            }
+        }
+    }
     else
     {
         cout << "Pilihan tidak ada" << endl;
     }
 
-    cout << "Data setelah diurutkan" << endl;
+    cout << "\nData setelah diurutkan" << endl;
+    cout << setfill('-') << setw(85) << "-" << endl;
+    cout << left << "|" << setfill(' ') << setw(16) << " Nomor KTP"
+         << "|" << setfill(' ') << setw(23);
+    cout << " Nama"
+         << "|" << setfill(' ') << setw(19) << " Status"
+         << "|" << setfill(' ') << setw(19);
+    cout << " Golongan Darah"
+         << "|" << endl;
+    cout << setfill('-') << setw(85) << "-" << endl;
     for (int i = 0; i < banyakData; i++)
     {
-        cout << "Nomor KTP\t: " << data[i].nomorKtp << endl;
-        cout << "Nama\t\t: " << replaceUnderscore(data[i].nama) << endl;
-        cout << "Status\t\t: " << data[i].status << endl;
-        cout << "Golongan Darah\t: " << data[i].golonganDarah << endl;
+        cout << "| " << setfill(' ') << setw(15) << data[i].nomorKtp << "| " << setfill(' ') << setw(22) << replaceUnderscore(data[i].nama);
+        cout << "| " << setfill(' ') << setw(18) << data[i].status << "| " << setfill(' ') << setw(18) << data[i].golonganDarah;
+        cout << "| " << endl;
     }
+    cout << setfill('-') << setw(85) << "-" << endl;
 }
 void selectionSort(dataPenduduk data[], string file)
 {
@@ -762,6 +876,9 @@ void selectionSort(dataPenduduk data[], string file)
     cout << "Pengurutan Data Selection" << endl;
     cout << "============================" << endl;
     cout << "1. NIK" << endl;
+    cout << "2. Nama" << endl;
+    cout << "3. Status" << endl;
+    cout << "4. Golongan Darah" << endl;
     cout << "============================" << endl;
     cout << "Pilih : ";
     int pilih, i = 0, banyakData = 0;
@@ -795,19 +912,79 @@ void selectionSort(dataPenduduk data[], string file)
             data[min] = temp;
         }
     }
+    else if (pilih == 2)
+    {
+        for (int i = 0; i < banyakData - 1; i++)
+        {
+            int min = i;
+            for (int j = i + 1; j < banyakData; j++)
+            {
+                if (replaceSpasi(data[j].nama) < replaceSpasi(data[min].nama))
+                {
+                    min = j;
+                }
+            }
+            dataPenduduk temp = data[i];
+            data[i] = data[min];
+            data[min] = temp;
+        }
+    }
+    else if (pilih == 3)
+    {
+        for (int i = 0; i < banyakData - 1; i++)
+        {
+            int min = i;
+            for (int j = i + 1; j < banyakData; j++)
+            {
+                if (replaceSpasi(data[j].status) < replaceSpasi(data[min].status))
+                {
+                    min = j;
+                }
+            }
+            dataPenduduk temp = data[i];
+            data[i] = data[min];
+            data[min] = temp;
+        }
+    }
+    else if (pilih == 4)
+    {
+        for (int i = 0; i < banyakData - 1; i++)
+        {
+            int min = i;
+            for (int j = i + 1; j < banyakData; j++)
+            {
+                if (data[j].golonganDarah < data[min].golonganDarah)
+                {
+                    min = j;
+                }
+            }
+            dataPenduduk temp = data[i];
+            data[i] = data[min];
+            data[min] = temp;
+        }
+    }
     else
     {
         cout << "Pilihan tidak ada" << endl;
     }
 
-    cout << "Data setelah diurutkan" << endl;
+    cout << "\nData setelah diurutkan" << endl;
+    cout << setfill('-') << setw(85) << "-" << endl;
+    cout << left << "|" << setfill(' ') << setw(16) << " Nomor KTP"
+         << "|" << setfill(' ') << setw(23);
+    cout << " Nama"
+         << "|" << setfill(' ') << setw(19) << " Status"
+         << "|" << setfill(' ') << setw(19);
+    cout << " Golongan Darah"
+         << "|" << endl;
+    cout << setfill('-') << setw(85) << "-" << endl;
     for (int i = 0; i < banyakData; i++)
     {
-        cout << "Nomor KTP\t: " << data[i].nomorKtp << endl;
-        cout << "Nama\t\t: " << replaceUnderscore(data[i].nama) << endl;
-        cout << "Status\t\t: " << data[i].status << endl;
-        cout << "Golongan Darah\t: " << data[i].golonganDarah << endl;
+        cout << "| " << setfill(' ') << setw(15) << data[i].nomorKtp << "| " << setfill(' ') << setw(22) << replaceUnderscore(data[i].nama);
+        cout << "| " << setfill(' ') << setw(18) << data[i].status << "| " << setfill(' ') << setw(18) << data[i].golonganDarah;
+        cout << "| " << endl;
     }
+    cout << setfill('-') << setw(85) << "-" << endl;
 }
 void insertionSort(dataPenduduk data[], string file)
 {
@@ -815,6 +992,9 @@ void insertionSort(dataPenduduk data[], string file)
     cout << "Pengurutan Data Insertion" << endl;
     cout << "============================" << endl;
     cout << "1. NIK" << endl;
+    cout << "2. Nama" << endl;
+    cout << "3. Status" << endl;
+    cout << "4. Golongan Darah" << endl;
     cout << "============================" << endl;
     cout << "Pilih : ";
     int pilih, i = 0, banyakData = 0;
@@ -845,19 +1025,70 @@ void insertionSort(dataPenduduk data[], string file)
             data[j + 1] = temp;
         }
     }
+    else if (pilih == 2)
+    {
+        for (int i = 1; i < banyakData; i++)
+        {
+            dataPenduduk temp = data[i];
+            int j = i - 1;
+            while (j >= 0 && replaceSpasi(data[j].nama) > replaceSpasi(temp.nama))
+            {
+                data[j + 1] = data[j];
+                j--;
+            }
+            data[j + 1] = temp;
+        }
+    }
+    else if (pilih == 3)
+    {
+        for (int i = 1; i < banyakData; i++)
+        {
+            dataPenduduk temp = data[i];
+            int j = i - 1;
+            while (j >= 0 && replaceSpasi(data[j].status) > replaceSpasi(temp.status))
+            {
+                data[j + 1] = data[j];
+                j--;
+            }
+            data[j + 1] = temp;
+        }
+    }
+    else if (pilih == 4)
+    {
+        for (int i = 1; i < banyakData; i++)
+        {
+            dataPenduduk temp = data[i];
+            int j = i - 1;
+            while (j >= 0 && data[j].golonganDarah > temp.golonganDarah)
+            {
+                data[j + 1] = data[j];
+                j--;
+            }
+            data[j + 1] = temp;
+        }
+    }
     else
     {
         cout << "Pilihan tidak ada" << endl;
     }
 
     cout << "Data setelah diurutkan" << endl;
+    cout << setfill('-') << setw(85) << "-" << endl;
+    cout << left << "|" << setfill(' ') << setw(16) << " Nomor KTP"
+         << "|" << setfill(' ') << setw(23);
+    cout << " Nama"
+         << "|" << setfill(' ') << setw(19) << " Status"
+         << "|" << setfill(' ') << setw(19);
+    cout << " Golongan Darah"
+         << "|" << endl;
+    cout << setfill('-') << setw(85) << "-" << endl;
     for (int i = 0; i < banyakData; i++)
     {
-        cout << "Nomor KTP\t: " << data[i].nomorKtp << endl;
-        cout << "Nama\t\t: " << replaceUnderscore(data[i].nama) << endl;
-        cout << "Status\t\t: " << data[i].status << endl;
-        cout << "Golongan Darah\t: " << data[i].golonganDarah << endl;
+        cout << "| " << setfill(' ') << setw(15) << data[i].nomorKtp << "| " << setfill(' ') << setw(22) << replaceUnderscore(data[i].nama);
+        cout << "| " << setfill(' ') << setw(18) << data[i].status << "| " << setfill(' ') << setw(18) << data[i].golonganDarah;
+        cout << "| " << endl;
     }
+    cout << setfill('-') << setw(85) << "-" << endl;
 }
 void shellSort(dataPenduduk data[], string file)
 {
@@ -865,6 +1096,9 @@ void shellSort(dataPenduduk data[], string file)
     cout << "Pengurutan Data Shell" << endl;
     cout << "============================" << endl;
     cout << "1. NIK" << endl;
+    cout << "2. Nama" << endl;
+    cout << "3. Status" << endl;
+    cout << "4. Golongan Darah" << endl;
     cout << "============================" << endl;
     cout << "Pilih : ";
     int pilih, i = 0, banyakData = 0;
@@ -900,19 +1134,85 @@ void shellSort(dataPenduduk data[], string file)
             gap /= 2;
         }
     }
+    else if (pilih == 2)
+    {
+        int gap = banyakData / 2;
+        while (gap > 0)
+        {
+            for (int i = gap; i < banyakData; i++)
+            {
+                dataPenduduk temp = data[i];
+                int j = i;
+                while (j >= gap && replaceSpasi(data[j - gap].nama) > replaceSpasi(temp.nama))
+                {
+                    data[j] = data[j - gap];
+                    j -= gap;
+                }
+                data[j] = temp;
+            }
+            gap /= 2;
+        }
+    }
+    else if (pilih == 3)
+    {
+        int gap = banyakData / 2;
+        while (gap > 0)
+        {
+            for (int i = gap; i < banyakData; i++)
+            {
+                dataPenduduk temp = data[i];
+                int j = i;
+                while (j >= gap && replaceSpasi(data[j - gap].status) > replaceSpasi(temp.status))
+                {
+                    data[j] = data[j - gap];
+                    j -= gap;
+                }
+                data[j] = temp;
+            }
+            gap /= 2;
+        }
+    }
+    else if (pilih == 4)
+    {
+        int gap = banyakData / 2;
+        while (gap > 0)
+        {
+            for (int i = gap; i < banyakData; i++)
+            {
+                dataPenduduk temp = data[i];
+                int j = i;
+                while (j >= gap && data[j - gap].golonganDarah > temp.golonganDarah)
+                {
+                    data[j] = data[j - gap];
+                    j -= gap;
+                }
+                data[j] = temp;
+            }
+            gap /= 2;
+        }
+    }
     else
     {
         cout << "Pilihan tidak ada" << endl;
     }
 
     cout << "Data setelah diurutkan" << endl;
+    cout << setfill('-') << setw(85) << "-" << endl;
+    cout << left << "|" << setfill(' ') << setw(16) << " Nomor KTP"
+         << "|" << setfill(' ') << setw(23);
+    cout << " Nama"
+         << "|" << setfill(' ') << setw(19) << " Status"
+         << "|" << setfill(' ') << setw(19);
+    cout << " Golongan Darah"
+         << "|" << endl;
+    cout << setfill('-') << setw(85) << "-" << endl;
     for (int i = 0; i < banyakData; i++)
     {
-        cout << "Nomor KTP\t: " << data[i].nomorKtp << endl;
-        cout << "Nama\t\t: " << replaceUnderscore(data[i].nama) << endl;
-        cout << "Status\t\t: " << data[i].status << endl;
-        cout << "Golongan Darah\t: " << data[i].golonganDarah << endl;
+        cout << "| " << setfill(' ') << setw(15) << data[i].nomorKtp << "| " << setfill(' ') << setw(22) << replaceUnderscore(data[i].nama);
+        cout << "| " << setfill(' ') << setw(18) << data[i].status << "| " << setfill(' ') << setw(18) << data[i].golonganDarah;
+        cout << "| " << endl;
     }
+    cout << setfill('-') << setw(85) << "-" << endl;
 }
 void mergeSambung(dataPenduduk data[], string file)
 {
